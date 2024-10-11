@@ -1,0 +1,8 @@
+{
+  "manual.link.description": "Gute Nachrichten! Sie brauchen kein Konto zu verknüpfen, um dieses Modul zu nutzen. Klicken Sie einfach auf \"Überspringen\", um zur nächsten Seite zu gelangen.",
+
+  "manual": "Manuell",
+
+  "manual.trigger.name": "Manueller Workflow-Auslöser",
+  "manual.trigger.description": "Mit diesem Trigger können Sie den Workflow manuell über unsere Schnittstelle ausführen",
+}

@@ -1,0 +1,8 @@
+{
+  "manual.link.description": "Great news! You don't need to link an account to use this module. Just click on \"skip\" to go to the next page.",
+
+  "manual": "Manual",
+
+  "manual.trigger.name": "Manual workflow trigger",
+  "manual.trigger.description": "Using this trigger, you can execute the workflow manually via our interface",
+}
