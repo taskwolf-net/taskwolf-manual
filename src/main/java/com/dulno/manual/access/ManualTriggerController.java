@@ -4,9 +4,9 @@ import com.dulno.core.access.DulnoRequestBody;
 import com.dulno.core.access.DulnoRestController;
 import com.google.common.collect.Maps;
 import jakarta.servlet.http.HttpServletResponse;
-import com.dulno.core.CoreModule;
 import com.dulno.core.user.UserDatabaseTable;
-import com.dulno.core.workflow.WorkflowDatabaseTable;
+import com.dulno.workflow.WorkflowModule;
+import com.dulno.workflow.structure.WorkflowDatabaseTable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,15 +18,15 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 public class ManualTriggerController extends DulnoRestController {
-  private final CoreModule coreModule;
+  private final WorkflowModule workflowModule;
   private final WorkflowDatabaseTable workflowDatabaseTable;
 
   private ManualTriggerController(
-    Key secretKey, UserDatabaseTable userDatabaseTable, CoreModule coreModule,
-    WorkflowDatabaseTable workflowDatabaseTable
+    Key secretKey, UserDatabaseTable userDatabaseTable,
+    WorkflowModule workflowModule, WorkflowDatabaseTable workflowDatabaseTable
   ) {
     super(secretKey, userDatabaseTable);
-    this.coreModule = coreModule;
+    this.workflowModule = workflowModule;
     this.workflowDatabaseTable = workflowDatabaseTable;
   }
 
@@ -36,7 +36,7 @@ public class ManualTriggerController extends DulnoRestController {
   ) {
     var body = DulnoRequestBody.of(payload, response);
     return workflowDatabaseTable.findWorkflow(body.getUUID("workflow"))
-      .thenCompose(entry -> coreModule.createWorkflow(entry.triggerId())
+      .thenCompose(entry -> workflowModule.createWorkflow(entry.triggerId())
         .thenCompose(workflow -> workflow.trigger(Maps.newHashMap())
           .thenApply(success -> Map.of("success", success))));
   }
