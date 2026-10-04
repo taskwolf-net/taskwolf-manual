@@ -1,9 +1,9 @@
-package com.dulno.manual;
+package net.taskwolf.manual;
 
-import com.dulno.core.account.AccountLinkEntry;
+import net.taskwolf.core.account.AccountLinkEntry;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import com.dulno.core.account.AccountLink;
+import net.taskwolf.core.account.AccountLink;
 
 import java.util.List;
 import java.util.UUID;

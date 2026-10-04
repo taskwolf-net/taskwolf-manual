@@ -1,12 +1,12 @@
-package com.dulno.manual.access;
+package net.taskwolf.manual.access;
 
-import com.dulno.core.access.DulnoRequestBody;
-import com.dulno.core.access.DulnoRestController;
+import net.taskwolf.core.access.TaskwolfRequestBody;
+import net.taskwolf.core.access.TaskwolfRestController;
 import com.google.common.collect.Maps;
 import jakarta.servlet.http.HttpServletResponse;
-import com.dulno.core.user.UserDatabaseTable;
-import com.dulno.workflow.WorkflowModule;
-import com.dulno.workflow.structure.WorkflowDatabaseTable;
+import net.taskwolf.core.user.UserDatabaseTable;
+import net.taskwolf.workflow.WorkflowModule;
+import net.taskwolf.workflow.structure.WorkflowDatabaseTable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-public class ManualTriggerController extends DulnoRestController {
+public class ManualTriggerController extends TaskwolfRestController {
   private final WorkflowModule workflowModule;
   private final WorkflowDatabaseTable workflowDatabaseTable;
 
@@ -34,7 +34,7 @@ public class ManualTriggerController extends DulnoRestController {
   public CompletableFuture<Map<String, Object>> executeWorkflow(
     @RequestBody String payload, HttpServletResponse response
   ) {
-    var body = DulnoRequestBody.of(payload, response);
+    var body = TaskwolfRequestBody.of(payload, response);
     return workflowDatabaseTable.findWorkflow(body.getUUID("workflow"))
       .thenCompose(entry -> workflowModule.createWorkflow(entry.triggerId())
         .thenCompose(workflow -> workflow.trigger(Maps.newHashMap())
